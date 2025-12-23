@@ -1,3 +1,290 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c8408de283d8feeaf16ecfa51bccaed2fd94a00cdf9e30a8e910feabfbb9a518
-size 9047
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiwut Videos - Python Video Editor</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --accent: #10b981;
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --blur-strength: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-image: url('main.avif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-cta {
+            background-color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-cta:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
+        }
+
+        header {
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 40px auto;
+            border-radius: 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .features {
+            padding: 40px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            padding: 35px;
+            border-radius: 16px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.85);
+            border-color: var(--primary);
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: #60a5fa;
+            font-size: 1.4rem;
+        }
+
+        .installation {
+            padding: 60px 5%;
+            max-width: 850px;
+            margin: 40px auto;
+            border-radius: 20px;
+        }
+
+        .code-block {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            color: #34d399;
+            overflow-x: auto;
+            margin-top: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .step {
+            margin-bottom: 35px;
+        }
+
+        .step h4 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            header { margin: 20px; padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="glass">
+        <div class="logo">Tiwut Videos</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#install">Installation</a>
+            <a href="#" class="btn-cta">Download Source</a>
+        </div>
+    </nav>
+
+    <header class="glass">
+        <h1>The Professional<br>Video Tool for Windows</h1>
+        <p class="subtitle">
+            Convert, Upscale, and Edit in seconds.<br>
+            Powered by Python & FFmpeg. Modern, Dark, and Fast.
+        </p>
+        <a href="#install" class="btn-cta" style="padding: 15px 40px; font-size: 1.2rem;">Get Started</a>
+    </header>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Why use Tiwut Videos?</h2>
+        <div class="grid">
+            <div class="card glass">
+                <span class="icon">🔄</span>
+                <h3>Format Converter</h3>
+                <p>Convert videos to MP4, MKV, AVI, MOV, or WEBM. Create high-quality GIFs with optimized color palettes directly from your clips.</p>
+            </div>
+            <div class="card glass">
+                <span class="icon">📈</span>
+                <h3>Smart Upscaling</h3>
+                <p>Upscale your videos (e.g., to 4K) using the high-quality Lanczos algorithm for crisp, sharp results without blurring.</p>
+            </div>
+            <div class="card glass">
+                <span class="icon">🎨</span>
+                <h3>Filters & Effects</h3>
+                <p>Adjust brightness, contrast, and saturation. Visual settings are translated directly into efficient FFmpeg filter chains.</p>
+            </div>
+            <div class="card glass">
+                <span class="icon">⚙️</span>
+                <h3>Full Control</h3>
+                <p>Set custom Bitrates, Framerates (FPS), or strip audio tracks. You have full control over quality and file size.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="install" class="installation glass">
+        <h2 class="section-title">Installation Guide</h2>
+        <p style="text-align: center; margin-bottom: 40px; color: var(--text-muted);">
+            Tiwut Videos is an open-source Python tool. You need Python and FFmpeg.
+        </p>
+
+        <div class="step">
+            <h4>1. Install Dependencies</h4>
+            <p>Ensure Python is installed, then install the GUI library via terminal:</p>
+            <div class="code-block">
+                pip install customtkinter
+            </div>
+        </div>
+
+        <div class="step">
+            <h4>2. Setup FFmpeg</h4>
+            <p>Download FFmpeg and add the <code>bin</code> folder to your Windows PATH variables. This is the engine behind the tool.</p>
+        </div>
+
+        <div class="step">
+            <h4>3. Run the Tool</h4>
+            <p>Save the code as <code>tiwut_videos.py</code> and run it:</p>
+            <div class="code-block">
+                python tiwut_videos.py
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Tiwut. Open Source Project.</p>
+        <p>Built with Python & CustomTkinter.</p>
+        <a href="https://tiwut.de/cookie-banner-information.html" style="color: #a0a0a0; text-decoration: none; font-size: 0.8rem;">Legal Notice</a>
+    </footer>
+    <script data-goatcounter="https://tiwut.goatcounter.com/count"async src="//gc.zgo.at/count.js"></script>
+    <script src="https://tiwut.de/cookie.notice.js"></script>
+    <script src="https://tiwut.de/Script/enforce_https.js" defer></script>
+
+</body>
+</html>
